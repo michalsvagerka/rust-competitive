@@ -82,13 +82,13 @@ impl<'a, T: Ord> SuffixArray<'a, T> {
 
 pub struct LongestCommonPrefix {
     /// `LCP[i]` is the longest prefix of `&input[i..]` with its successor.
-    pub LCP: Vec<usize>,
+    pub lcp: Vec<usize>,
 }
 
 impl LongestCommonPrefix {
     pub fn new<T: Eq>(suffix_array: &SuffixArray<T>) -> Self {
         Self {
-            LCP: (0..suffix_array.length).scan(0, |k, i| {
+            lcp: (0..suffix_array.length).scan(0, |k, i| {
                 if suffix_array.inverse[i] == suffix_array.length - 1 {
                     *k = 0;
                     Some(0)
@@ -114,33 +114,33 @@ impl LongestCommonPrefix {
     /// Use indexes to the original array. If you want to find LCP of the i-th lexicographically
     /// smallest string, use `lcp(suffix_array.suffix[i])` instead.
     pub fn lcp(&self, i: usize) -> usize {
-        self.LCP[i]
+        self.lcp[i]
     }
 }
 
 pub struct RangeLongestCommonPrefix {
-    pub RMQ: Vec<Vec<usize>>,
+    pub rmq: Vec<Vec<usize>>,
 }
 
 impl RangeLongestCommonPrefix {
     pub fn new<T: Eq>(suffix_array: &SuffixArray<T>, lcp: &LongestCommonPrefix) -> Self {
-        let mut RMQ = vec![];
-        RMQ.push(lcp.LCP.clone());
+        let mut rmq = vec![];
+        rmq.push(lcp.lcp.clone());
         let mut p = 0;
         while (1 << p) < suffix_array.length {
-            RMQ.push((0..(suffix_array.length - (1 << p))).map(|i|
-                min(RMQ[p][i], RMQ[p][i + (1 << p)])
+            rmq.push((0..(suffix_array.length - (1 << p))).map(|i|
+                min(rmq[p][i], rmq[p][i + (1 << p)])
             ).collect());
             p += 1;
         }
         Self {
-            RMQ
+            rmq
         }
     }
 
     /// Use indexes to the original array. If you want to find LCP of the i-th lexicographically
     /// smallest string, use `lcp(suffix_array.suffix[i], suffix_array.suffix[j])` instead.
-    pub fn lcp(&self, i: usize, j: usize) {}
+    pub fn lcp(&self, _i: usize, _j: usize) {}
 }
 
 struct SuffixArrayComputation {
