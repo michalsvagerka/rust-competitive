@@ -117,7 +117,7 @@ impl<'s> Input<'s> {
         res
     }
 
-    fn read_string(&mut self) -> String {
+    pub fn read_string(&mut self) -> String {
         match self.next_token() {
             None => {
                 panic!("Input exhausted");
@@ -144,8 +144,8 @@ impl<'s> Input<'s> {
     }
 
     fn read_integer<T: FromStr>(&mut self) -> T
-        where
-            <T as FromStr>::Err: Debug,
+    where
+        <T as FromStr>::Err: Debug,
     {
         let res = self.read_string();
         res.parse::<T>().unwrap()

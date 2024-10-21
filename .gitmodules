@@ -1,0 +1,3 @@
+[submodule "rust-competitive-helper"]
+	path = rust-competitive-helper
+	url = git@github.com:michalsvagerka/rust-competitive-helper.git

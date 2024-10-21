@@ -1,9 +1,11 @@
 type PreCalc = ();
 
+//noinspection DuplicatedCode
 fn solve(input: &mut Input, out: &mut Output, _test_case: usize, _data: &PreCalc) {
     $CARET
 }
 
+//noinspection DuplicatedCode
 pub(crate) fn run(mut input: Input, mut output: Output) -> bool {
     let pre_calc = ();
 

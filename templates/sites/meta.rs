@@ -2,23 +2,23 @@ use algo_lib::misc::run_parallel::{run_parallel, ParallelJob};
 
 type PreCalc = ();
 
-fn solve(input: &mut Input, output: &mut Output, _data: &PreCalc) {
+fn solve(input: &mut Input, output: &mut Output, data: &PreCalc) {
     #[derive(Clone, Default)]
     struct Job {}
 
-    impl ParallelJob for Job {
+    impl ParallelJob<PreCalc> for Job {
         fn read_input(&mut self, input: &mut Input) {
             $CARET
         }
 
-        fn solve(&mut self) {}
+        fn solve(&mut self, data: &PreCalc) {}
 
         fn write_output(&mut self, out: &mut Output, test_case: usize) {
             out.print_line((format!("Case #{}:", test_case), ));
         }
     }
 
-    run_parallel::<Job>(input, output);
+    run_parallel::<Job, PreCalc>(input, output, data);
 }
 
 pub(crate) fn run(mut input: Input, mut output: Output) -> bool {

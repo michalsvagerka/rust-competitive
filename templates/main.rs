@@ -9,6 +9,13 @@ $SOLVE
 mod tester;
 
 fn main() {
-    tester::run_tests();
+    let name = "TODO";
+    if name != "TODO" {
+        let mut in_file = std::fs::File::open(&format!("C:\\Users\\micha\\Downloads\\{}_input.txt", name)).unwrap();
+        let mut out_file = std::fs::File::create(&format!("C:\\Users\\micha\\Downloads\\{}_output.txt", name)).unwrap();
+        run(Input::new(&mut in_file), Output::new(&mut out_file));
+    } else {
+        tester::run_tests();
+    }
 }
 //END MAIN
